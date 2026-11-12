@@ -4,8 +4,21 @@ All notable changes to Apexy are listed here. The format follows [Keep a Changel
 
 ## [Unreleased]
 
+## [1.6.1]
+
+### Fixed
+- The Steady mission's timer never started; it now counts while you're on target, with an arrow showing which way to aim.
+
+## [1.6.0]
+
 ### Added
 - Open-source release under GPL-3.0, with contribution guides, issue templates and CI.
+
+### Changed
+- The Steady mission asks for a random compass direction and tilt each time, so a phone left on the bed can't pass it.
+
+### Fixed
+- The Photo mission always reported a 0% match in release builds.
 
 ## [1.5.0]
 
@@ -67,7 +80,9 @@ All notable changes to Apexy are listed here. The format follows [Keep a Changel
 ### Added
 - Core alarms: scheduling, ringing screen, snooze, repeat days.
 
-[Unreleased]: https://github.com/H-BlaZe/Apexy/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/H-BlaZe/Apexy/compare/v1.6.1...HEAD
+[1.6.1]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.6.1
+[1.6.0]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.6.0
 [1.5.0]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.5.0
 [1.4.0]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.4.0
 [1.3.0]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.3.0

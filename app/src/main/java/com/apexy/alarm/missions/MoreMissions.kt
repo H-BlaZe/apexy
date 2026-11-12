@@ -23,7 +23,15 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.East
 import androidx.compose.material.icons.rounded.Nfc
+import androidx.compose.material.icons.rounded.North
+import androidx.compose.material.icons.rounded.NorthEast
+import androidx.compose.material.icons.rounded.NorthWest
+import androidx.compose.material.icons.rounded.South
+import androidx.compose.material.icons.rounded.SouthEast
+import androidx.compose.material.icons.rounded.SouthWest
+import androidx.compose.material.icons.rounded.West
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -48,12 +56,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.apexy.alarm.ui.neu.MissionCounter
 import com.apexy.alarm.ui.neu.Neu
 import com.apexy.alarm.ui.neu.NeuProgressRing
 import com.apexy.alarm.ui.neu.neu
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.math.abs
+import kotlin.math.asin
+import kotlin.math.atan2
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 import kotlin.random.Random
@@ -62,7 +72,9 @@ import kotlin.random.Random
 fun MissionType.availableOn(context: Context): Boolean = when (this) {
     MissionType.NFC -> NfcAdapter.getDefaultAdapter(context)?.isEnabled == true
     MissionType.LIGHT -> context.getSystemService(SensorManager::class.java)?.getDefaultSensor(Sensor.TYPE_LIGHT) != null
-    MissionType.STEADY -> context.getSystemService(SensorManager::class.java)?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null
+    MissionType.STEADY -> context.getSystemService(SensorManager::class.java)?.let {
+        it.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null && it.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR) != null
+    } == true
     else -> true
 }
 
@@ -285,47 +297,118 @@ fun OrderMission(mission: Mission, cb: MissionCallbacks) {
 
 /** Allowed wobble in m/s² per difficulty. */
 private val STEADY_TOLERANCE = floatArrayOf(1.2f, 0.8f, 0.5f, 0.3f, 0.18f)
+/** How far off the target compass heading and tilt (degrees) still counts, per difficulty. */
+private val HEADING_TOLERANCE = floatArrayOf(30f, 25f, 20f, 15f, 12f)
+private val TILT_TOLERANCE = floatArrayOf(14f, 12f, 10f, 8f, 6f)
+private val COMPASS = listOf("north" to 0f, "east" to 90f, "south" to 180f, "west" to 270f)
+/** Degrees the top of the phone leans away from you; 0 is upright. Never flat, so it can't sit on the bed. */
+private val TILTS = listOf(0f, 15f, 30f, 45f, 60f)
 
 @Composable
 fun SteadyMission(mission: Mission, cb: MissionCallbacks) {
     val c = Neu.colors
     val context = LocalContext.current
     val tolerance = STEADY_TOLERANCE[mission.difficulty - 1]
+    val headingTolerance = HEADING_TOLERANCE[mission.difficulty - 1]
+    val tiltTolerance = TILT_TOLERANCE[mission.difficulty - 1]
+    // A fresh pose every time, so a phone propped up once doesn't pass the next morning.
+    val (direction, targetHeading) = remember { COMPASS.random() }
+    val targetTilt = remember { TILTS.random() }
     val total = mission.count * 1000
     var stillMs by remember { mutableIntStateOf(0) }
     var wobble by remember { mutableFloatStateOf(0f) }
+    var heading by remember { mutableFloatStateOf(Float.NaN) }
+    var tilt by remember { mutableFloatStateOf(Float.NaN) }
     val latestCb by rememberUpdatedState(cb)
 
     DisposableEffect(Unit) {
         val sm = context.getSystemService(SensorManager::class.java)
         var smooth = SensorManager.GRAVITY_EARTH
+        val r = FloatArray(9)
         val listener = object : SensorEventListener {
             override fun onSensorChanged(e: SensorEvent) {
                 val v = e.values
+                if (e.sensor.type == Sensor.TYPE_ROTATION_VECTOR) {
+                    // Where the back camera points, in world coordinates (x east, y north, z up).
+                    SensorManager.getRotationMatrixFromVector(r, v)
+                    val east = -r[2]; val north = -r[5]; val up = -r[8]
+                    heading = (Math.toDegrees(atan2(east, north).toDouble()).toFloat() + 360f) % 360f
+                    tilt = -Math.toDegrees(asin(up.coerceIn(-1f, 1f).toDouble())).toFloat()
+                    return
+                }
                 val mag = sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2])
                 smooth = 0.8f * smooth + 0.2f * mag
-                wobble = 0.7f * wobble + 0.3f * kotlin.math.abs(mag - smooth)
+                wobble = 0.7f * wobble + 0.3f * abs(mag - smooth)
             }
             override fun onAccuracyChanged(s: Sensor?, a: Int) {}
         }
         sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)?.let { sm.registerListener(listener, it, SensorManager.SENSOR_DELAY_GAME) }
+        sm.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR)?.let { sm.registerListener(listener, it, SensorManager.SENSOR_DELAY_GAME) }
         onDispose { sm.unregisterListener(listener) }
     }
+    // Positive: turn clockwise / lean the top further away.
+    val turnBy = if (heading.isNaN()) Float.NaN else ((targetHeading - heading + 540f) % 360f) - 180f
+    val leanBy = if (tilt.isNaN()) Float.NaN else targetTilt - tilt
+    // -1, 0 or 1 on each axis; 0 means close enough. NaN until the sensor reports, which reads as off.
+    val turn = if (abs(turnBy) <= headingTolerance) 0 else if (turnBy > 0) 1 else -1
+    val lean = if (abs(leanBy) <= tiltTolerance) 0 else if (leanBy > 0) 1 else -1
+    val aimed = !heading.isNaN() && turn == 0 && lean == 0
+    val steady = wobble < tolerance
+    val aimedNow by rememberUpdatedState(aimed)
+
     LaunchedEffect(Unit) {
         while (stillMs < total) {
             delay(100)
-            stillMs = if (wobble < tolerance) stillMs + 100 else 0
+            // Shaking starts over; drifting off target only pauses, so a nudge back on target carries on.
+            stillMs = when {
+                wobble >= tolerance -> 0
+                aimedNow -> stillMs + 100
+                else -> stillMs
+            }
             latestCb.onInteraction()
         }
         latestCb.onComplete()
     }
 
     Column(Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        val steady = wobble < tolerance
-        Text(if (steady) "Hold it…" else "Too shaky, start again", style = MaterialTheme.typography.titleLarge, color = if (steady) c.text else c.danger)
+        Text(
+            "Face ${direction.uppercase()}, ${if (targetTilt == 0f) "phone upright" else "tilted back ${targetTilt.roundToInt()}°"}",
+            style = MaterialTheme.typography.titleMedium, color = c.textMuted, textAlign = TextAlign.Center,
+        )
+        Spacer(Modifier.height(8.dp))
+        // Camera aim: leaning the top away points the camera down.
+        val status = when {
+            heading.isNaN() -> "Finding direction…"
+            !aimed -> listOfNotNull(
+                when (turn) { 1 -> "right"; -1 -> "left"; else -> null },
+                when (lean) { 1 -> "down"; -1 -> "up"; else -> null },
+            ).joinToString(" and ", prefix = "Aim ")
+            !steady -> "Too shaky, start again"
+            else -> "Hold it…"
+        }
+        Text(status, style = MaterialTheme.typography.titleLarge, color = if (aimed && steady) c.text else c.danger, textAlign = TextAlign.Center)
         Spacer(Modifier.height(28.dp))
-        MissionCounter((stillMs / 1000), mission.count, "s")
+        NeuProgressRing(stillMs.toFloat() / total) {
+            if (aimed || heading.isNaN()) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text("${(mission.count - stillMs / 1000).coerceAtLeast(0)}", fontSize = 64.sp, fontWeight = FontWeight.Light, color = c.text)
+                    Text("s left", style = MaterialTheme.typography.labelLarge, color = c.textMuted)
+                }
+            } else {
+                val arrow = when (turn to lean) {
+                    0 to -1 -> Icons.Rounded.North
+                    1 to -1 -> Icons.Rounded.NorthEast
+                    1 to 0 -> Icons.Rounded.East
+                    1 to 1 -> Icons.Rounded.SouthEast
+                    0 to 1 -> Icons.Rounded.South
+                    -1 to 1 -> Icons.Rounded.SouthWest
+                    -1 to 0 -> Icons.Rounded.West
+                    else -> Icons.Rounded.NorthWest
+                }
+                Icon(arrow, status, Modifier.size(120.dp), tint = c.accent)
+            }
+        }
         Spacer(Modifier.height(18.dp))
-        Text("Hold your phone up in front of you", style = MaterialTheme.typography.bodyMedium, color = c.textMuted)
+        Text("Hold your phone up in front of you, screen facing you, and follow the arrow", style = MaterialTheme.typography.bodyMedium, color = c.textMuted, textAlign = TextAlign.Center)
     }
 }
