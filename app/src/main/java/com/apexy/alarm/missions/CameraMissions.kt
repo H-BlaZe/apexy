@@ -1,6 +1,7 @@
 package com.apexy.alarm.missions
 
 import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.HapticFeedbackConstants
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.Image
@@ -119,7 +120,8 @@ fun PhotoMission(mission: Mission, cb: MissionCallbacks) {
                     checking = true
                     scope.launch {
                         val score = withContext(Dispatchers.Default) {
-                            runCatching { PhotoMatcher.similarity(context, bitmap, mission.photo) }.getOrDefault(0.0)
+                            runCatching { PhotoMatcher.similarity(context, bitmap, mission.photo) }
+                                .onFailure { Log.e("PhotoMission", "Photo match failed", it) }.getOrDefault(0.0)
                         }
                         checking = false
                         if (score >= threshold) cb.onComplete()

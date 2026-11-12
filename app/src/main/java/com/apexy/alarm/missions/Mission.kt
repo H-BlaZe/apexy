@@ -25,7 +25,7 @@ enum class MissionType(
     LIGHT("Light", "Find bright light", "Seconds", 5, 3..30),
     ODD("Odd one", "Spot the odd emoji", "Rounds", 3, 1..10),
     ORDER("In order", "Tap numbers in order", "Rounds", 2, 1..6),
-    STEADY("Steady", "Hold the phone still", "Seconds", 10, 5..60, 5),
+    STEADY("Steady", "Aim and hold the phone still", "Seconds", 10, 5..60, 5),
     ;
 
     val needsCamera get() = this == QR || this == BARCODE || this == PHOTO
