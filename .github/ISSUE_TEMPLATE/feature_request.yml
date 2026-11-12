@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an idea or a new mission
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      placeholder: I keep ... when ...
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Fits the project
+      options:
+        - label: Works fully offline, with no account or tracking
+          required: true

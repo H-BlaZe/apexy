@@ -1,0 +1,66 @@
+name: Alarm didn't ring
+description: An alarm rang late, silently, or not at all
+labels: ["bug", "reliability"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Sorry it let you down. These reports are the most useful thing you can send, because the cause is usually device-specific.
+  - type: input
+    id: device
+    attributes:
+      label: Phone model
+      placeholder: e.g. POCO X6 Pro, Samsung Galaxy A54
+    validations:
+      required: true
+  - type: input
+    id: android
+    attributes:
+      label: Android version and skin
+      placeholder: e.g. Android 14, HyperOS 1.0
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Apexy version
+      description: Settings → About
+      placeholder: e.g. 1.5.0
+    validations:
+      required: true
+  - type: dropdown
+    id: what
+    attributes:
+      label: What happened?
+      options:
+        - Didn't ring at all
+        - Rang late
+        - Rang without sound
+        - Notification only, no full-screen alarm
+        - Something else
+    validations:
+      required: true
+  - type: dropdown
+    id: reliability
+    attributes:
+      label: Reliability checklist
+      description: Settings → Reliability
+      options:
+        - Every row ticked
+        - Some rows not ticked
+        - Haven't checked
+    validations:
+      required: true
+  - type: dropdown
+    id: test
+    attributes:
+      label: Does the 1-minute Test alarm ring with the screen off?
+      options:
+        - "Yes"
+        - "No"
+        - Didn't try
+  - type: textarea
+    id: details
+    attributes:
+      label: Anything else?
+      description: Was the app swiped away? Battery saver on? Phone restarted overnight?

@@ -1,0 +1,6 @@
+<resources>
+    <color name="surface">#E4E8EE</color>
+    <color name="ic_bg">#E4E8EE</color>
+    <color name="widget_text">#2B3240</color>
+    <color name="widget_muted">#606B80</color>
+</resources>

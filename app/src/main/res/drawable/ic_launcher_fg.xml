@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Apexy mark: one clean peak forming the "A", with the sun rising behind its crossbar. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <group android:pivotX="54" android:pivotY="55" android:scaleX="0.84" android:scaleY="0.84">
+        <path android:pathData="M40,66 A14,14 0 0,1 68,66 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient android:type="linear" android:startX="54" android:startY="52" android:endX="54" android:endY="66">
+                    <item android:offset="0" android:color="#FFFFE7A3" />
+                    <item android:offset="1" android:color="#FFFF6F57" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path android:pathData="M33,80 L54,30 L75,80"
+            android:strokeWidth="9" android:strokeLineCap="round" android:strokeLineJoin="round">
+            <aapt:attr name="android:strokeColor">
+                <gradient android:type="linear" android:startX="54" android:startY="28" android:endX="54" android:endY="80">
+                    <item android:offset="0" android:color="#FFFFFFFF" />
+                    <item android:offset="1" android:color="#FFCFCBFF" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path android:pathData="M38.5,66 L69.5,66"
+            android:strokeColor="#FFFFFFFF" android:strokeWidth="3.2" android:strokeLineCap="round" />
+    </group>
+</vector>
