@@ -1,0 +1,23 @@
+# Gradle / build
+.gradle/
+.kotlin/
+build/
+
+# Local config and secrets
+local.properties
+keystore.properties
+*.jks
+*.keystore
+
+# Release APKs go on GitHub Releases, not in git
+release/
+*.apk
+*.aab
+
+# IDEs and OS
+.idea/
+*.iml
+.vscode/
+.DS_Store
+.directory
+captures/

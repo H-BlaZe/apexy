@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.Apexy" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/surface</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Launch splash: the logo's own background colour, so the mark sits on its deep indigo. -->
+        <item name="android:windowSplashScreenBackground">#FF2B2C6E</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_launcher_fg</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">#FF36308A</item>
+    </style>
+</resources>

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Install help
+    url: https://github.com/H-BlaZe/Apexy/blob/main/docs/INSTALL.md
+    about: Step-by-step install guide and brand-specific settings
+  - name: Security vulnerability
+    url: https://github.com/H-BlaZe/Apexy/security/advisories/new
+    about: Report security issues privately, not as a public issue

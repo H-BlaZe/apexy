@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Status-bar icon: the Apexy mark in white, cropped to its glyph. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="58" android:viewportHeight="58">
+    <group android:translateX="-25" android:translateY="-26">
+        <path android:pathData="M43,62.5 A11,11 0 0,1 65,62.5 Z" android:fillColor="#FFFFFFFF" />
+        <path android:pathData="M33,80 L54,30 L75,80"
+            android:strokeColor="#FFFFFFFF" android:strokeWidth="8.5"
+            android:strokeLineCap="round" android:strokeLineJoin="round" />
+        <path android:pathData="M38.5,66 L69.5,66"
+            android:strokeColor="#FFFFFFFF" android:strokeWidth="3.4" android:strokeLineCap="round" />
+    </group>
+</vector>

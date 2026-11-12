@@ -1,0 +1,46 @@
+name: Bug report
+description: Something is broken or behaves wrongly
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: And what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Tap ...
+        3. See ...
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Phone model
+    validations:
+      required: true
+  - type: input
+    id: android
+    attributes:
+      label: Android version and skin
+      placeholder: e.g. Android 14, One UI 6
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Apexy version
+      description: Settings → About
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or logs
+      description: Drag images here. For crashes, `adb logcat` output helps a lot.
