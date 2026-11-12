@@ -95,7 +95,7 @@ dependencies {
     implementation("androidx.camera:camera-view:$camerax")
     implementation("com.google.mlkit:barcode-scanning:17.3.0")
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.json:json:20240303")
+    testImplementation("org.json:json:20260814")
     implementation("com.google.mediapipe:tasks-vision:0.10.20") {
         // MediaPipe leaks the AutoValue annotation processor onto the runtime classpath.
         exclude(group = "com.google.auto.value", module = "auto-value")
