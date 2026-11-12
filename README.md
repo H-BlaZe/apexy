@@ -23,13 +23,15 @@ No ads. No account. No paywall. No internet. Ever.
 ---
 
 <div align="center">
-<img src="docs/screenshots/editor.png" width="200" alt="Alarm editor" />
-&nbsp;
-<img src="docs/screenshots/sound.png" width="200" alt="Sound and vibration settings" />
-&nbsp;
-<img src="docs/screenshots/reliability.png" width="200" alt="Reliability checklist" />
-&nbsp;
-<img src="docs/screenshots/about-dark.png" width="200" alt="About screen in dark mode" />
+
+| 1. Set it | 2. It rings | 3. Prove you're awake | 4. You're up |
+|:---:|:---:|:---:|:---:|
+| <img src="docs/screenshots/alarms.png" width="190" alt="Alarm list with Gym, Work and weekend alarms" /> | <img src="docs/screenshots/ringing.png" width="190" alt="Ringing screen for the 6:30 Gym alarm" /> | <img src="docs/screenshots/mission-math.png" width="190" alt="Math mission: 15 + 30" /> | <img src="docs/screenshots/celebration.png" width="190" alt="Mission complete: You're up!" /> |
+
+| Spot the odd one | Sleep sounds & tracking | Never miss a ring |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/mission-odd-one.png" width="190" alt="Odd one out mission" /> | <img src="docs/screenshots/sleep-dark.png" width="190" alt="Sleep screen in dark mode" /> | <img src="docs/screenshots/reliability.png" width="190" alt="Reliability checklist" /> |
+
 </div>
 
 ---
