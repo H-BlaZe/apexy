@@ -39,7 +39,8 @@ android {
     splits {
         abi {
             // One APK per CPU: arm64 for real phones (the POCO), x86_64 for the emulator.
-            isEnable = true
+            // -PnoAbiSplits builds one universal APK instead, as F-Droid does.
+            isEnable = !project.hasProperty("noAbiSplits")
             reset()
             include("arm64-v8a", "x86_64")
             isUniversalApk = false
@@ -115,4 +116,10 @@ dependencies {
     "fullImplementation"("com.google.mediapipe:tasks-audio:0.10.20") {
         exclude(group = "com.google.auto.value", module = "auto-value")
     }
+}
+
+// Baseline profiles come out slightly different from build to build, which breaks
+// F-Droid's reproducible-build check, so the foss flavor ships without them.
+tasks.configureEach {
+    if (name.contains("Foss") && name.contains("ArtProfile")) enabled = false
 }
