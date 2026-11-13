@@ -6,6 +6,8 @@ Versions before 1.6.0 were released privately, before Apexy was open-sourced.
 
 ## [Unreleased]
 
+## [1.7.0]
+
 ### Added
 - A `foss` build flavor for F-Droid, with no proprietary Google libraries. It leaves out the Photo mission and snore detection, which need MediaPipe.
 
@@ -89,5 +91,6 @@ Versions before 1.6.0 were released privately, before Apexy was open-sourced.
 ### Added
 - Core alarms: scheduling, ringing screen, snooze, repeat days.
 
-[Unreleased]: https://github.com/H-BlaZe/Apexy/compare/v1.6.1...HEAD
+[Unreleased]: https://github.com/H-BlaZe/Apexy/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.7.0
 [1.6.1]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.6.1
