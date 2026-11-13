@@ -6,6 +6,13 @@ Versions before 1.6.0 were released privately, before Apexy was open-sourced.
 
 ## [Unreleased]
 
+### Added
+- A `foss` build flavor for F-Droid, with no proprietary Google libraries. It leaves out the Photo mission and snore detection, which need MediaPipe.
+
+### Changed
+- QR and barcode missions scan with ZXing instead of Google ML Kit, in every build.
+- The package name is now `com.hblaze.apexy` (was `com.apexy.alarm`). Android treats this as a new app, so 1.7.0 installs next to 1.6.x instead of updating it. To move over: in the old app, go to **Settings → Backup → Back up**; install 1.7.0, go to **Settings → Backup → Restore** and pick that file; then uninstall the old app. Alarms, registered codes, reference photos, settings, history and sleep nights all come across. Snore recordings don't.
+
 ## [1.6.1]
 
 ### Fixed

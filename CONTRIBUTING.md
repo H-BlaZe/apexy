@@ -29,13 +29,15 @@ You need JDK 17+ and the Android SDK with platform 35. Android Studio (Ladybug o
 ```bash
 git clone https://github.com/<you>/Apexy.git
 cd Apexy
-./gradlew testDebugUnitTest assembleDebug
-adb install -r app/build/outputs/apk/debug/app-arm64-v8a-debug.apk
+./gradlew testFullDebugUnitTest testFossDebugUnitTest assembleDebug
+adb install -r app/build/outputs/apk/full/debug/app-full-arm64-v8a-debug.apk
 ```
 
 No keystore is needed. Debug builds are signed with the standard debug key. Note that a debug build can't be installed over an official release (different signature), so uninstall the release first or use a second device or emulator.
 
 The `x86_64` APK is for the emulator. Camera-based missions and snore detection can't be fully tested there: the emulated camera is black and MediaPipe ships no x86_64 libraries. Test those on a real phone.
+
+There are two flavors: `full` (GitHub releases) and `foss` (F-Droid, no MediaPipe, so no Photo mission or snore detection). Code that needs MediaPipe lives in `app/src/full/`, with a stub of the same name in `app/src/foss/`. Never add a proprietary Google library (ML Kit, Play Services, Firebase) to the `foss` flavor; CI fails if you do.
 
 ## Code style
 
@@ -48,7 +50,7 @@ The `x86_64` APK is for the emulator. Camera-based missions and snore detection 
 
 1. Fork, then branch from `main`: `fix/snooze-crash`, `feat/nfc-mission-timeout`, and so on.
 2. Keep each PR to one change. Separate refactors from features.
-3. Run `./gradlew testDebugUnitTest assembleDebug` before pushing. CI runs the same thing.
+3. Run `./gradlew testFullDebugUnitTest testFossDebugUnitTest assembleDebug` before pushing. CI runs the same thing.
 4. Add or update tests for logic changes.
 5. For UI changes, attach before/after screenshots in light **and** dark mode.
 6. Update `CHANGELOG.md` under **Unreleased**.
@@ -60,7 +62,7 @@ By contributing, you agree your work is released under the [GPL-3.0](LICENSE) li
 
 ## Project layout
 
-| Path (`app/src/main/java/com/apexy/alarm/`) | What's there |
+| Path (`app/src/main/java/com/hblaze/apexy/`) | What's there |
 |---|---|
 | `core/` | `AlarmScheduler`, `AlarmService` (ringing), receivers, anti-cheat (`AlarmGuard`), backup, torch |
 | `data/` | Room entities, `AppDatabase` and migrations, DataStore `Settings` |

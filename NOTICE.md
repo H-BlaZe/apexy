@@ -6,8 +6,8 @@ Apexy is licensed under the [GPL-3.0](LICENSE). It bundles or depends on the fol
 
 | File | Source | License |
 |---|---|---|
-| `app/src/main/assets/yamnet.tflite` | [YAMNet](https://www.kaggle.com/models/google/yamnet) audio classifier, Google | Apache 2.0 |
-| `app/src/main/assets/image_embedder.tflite` | [MediaPipe Image Embedder](https://ai.google.dev/edge/mediapipe/solutions/vision/image_embedder) (MobileNet V3), Google | Apache 2.0 |
+| `app/src/full/assets/yamnet.tflite` | [YAMNet](https://www.kaggle.com/models/google/yamnet) audio classifier, Google | Apache 2.0 |
+| `app/src/full/assets/image_embedder.tflite` | [MediaPipe Image Embedder](https://ai.google.dev/edge/mediapipe/solutions/vision/image_embedder) (MobileNet V3), Google | Apache 2.0 |
 
 ## Libraries
 
@@ -15,9 +15,9 @@ Apexy is licensed under the [GPL-3.0](LICENSE). It bundles or depends on the fol
 |---|---|
 | AndroidX (Compose, Activity, Core, Lifecycle, DataStore, Room, CameraX) | Apache 2.0 |
 | Kotlin and kotlinx.coroutines | Apache 2.0 |
-| MediaPipe Tasks (vision, audio) | Apache 2.0 |
-| Google ML Kit Barcode Scanning | [ML Kit Terms of Service](https://developers.google.com/ml-kit/terms) |
+| ZXing (QR and barcode scanning) | Apache 2.0 |
+| MediaPipe Tasks (vision, audio), `full` flavor only | Apache 2.0 |
 
-ML Kit is distributed as a closed-source binary by Google. The Apexy build removes its network permissions, so it runs fully on-device.
+MediaPipe is distributed as prebuilt binaries by Google and pulls in Google's data-transport libraries. The Apexy build removes its network permissions, so it runs fully on-device. The `foss` flavor (F-Droid) includes neither MediaPipe nor the two models.
 
 All alarm tones, sleep sounds and UI sounds are synthesised at runtime by Apexy's own code. No audio files from other apps are included.

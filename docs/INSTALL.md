@@ -117,6 +117,14 @@ Usually just the Reliability checklist is enough. Make sure battery is set to **
 
 Your alarms, history and settings are kept.
 
+> **Coming from 1.6.x to 1.7.0 or later?** Version 1.7.0 changed the app's package name, so Android installs it as a second app instead of updating the old one. To move over:
+> 1. In the **old** Apexy, go to **Settings → Backup → Back up** and save the file.
+> 2. Install the new APK and open it.
+> 3. Go to **Settings → Backup → Restore** and pick the file you saved.
+> 4. Uninstall the old Apexy. Until you do, both apps can ring.
+>
+> Snore recordings don't come across. Everything else does.
+
 > If Android says *"App not installed as package conflicts with an existing package"*, the APK you downloaded was signed by someone else (for example, a build from a fork). Only install official releases from the link above. To switch anyway, back up first (**Settings → Backup**), uninstall, install the new one, then restore.
 
 ## Uninstalling

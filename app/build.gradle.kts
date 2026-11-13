@@ -13,15 +13,27 @@ val keystoreProps = Properties().apply {
 }
 
 android {
-    namespace = "com.apexy.alarm"
+    namespace = "com.hblaze.apexy"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.apexy.alarm"
+        applicationId = "com.hblaze.apexy"
         minSdk = 26
         targetSdk = 35
         versionCode = 13
         versionName = "1.6.1"
+    }
+
+    flavorDimensions += "distribution"
+    productFlavors {
+        // GitHub releases: everything, including the MediaPipe models for Photo match and snore detection.
+        create("full") {
+            dimension = "distribution"
+        }
+        // F-Droid: no prebuilt Google ML libraries, so Photo match and snore detection are left out.
+        create("foss") {
+            dimension = "distribution"
+        }
     }
 
     splits {
@@ -93,14 +105,14 @@ dependencies {
     implementation("androidx.camera:camera-camera2:$camerax")
     implementation("androidx.camera:camera-lifecycle:$camerax")
     implementation("androidx.camera:camera-view:$camerax")
-    implementation("com.google.mlkit:barcode-scanning:17.3.0")
+    implementation("com.google.zxing:core:3.5.3")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.json:json:20240303")
-    implementation("com.google.mediapipe:tasks-vision:0.10.20") {
+    "fullImplementation"("com.google.mediapipe:tasks-vision:0.10.20") {
         // MediaPipe leaks the AutoValue annotation processor onto the runtime classpath.
         exclude(group = "com.google.auto.value", module = "auto-value")
     }
-    implementation("com.google.mediapipe:tasks-audio:0.10.20") {
+    "fullImplementation"("com.google.mediapipe:tasks-audio:0.10.20") {
         exclude(group = "com.google.auto.value", module = "auto-value")
     }
 }

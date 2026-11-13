@@ -18,6 +18,8 @@ No ads. No account. No paywall. No internet. Ever.
 
 [**Download**](https://github.com/H-BlaZe/Apexy/releases/latest) · [Install guide](docs/INSTALL.md) · [Contribute](CONTRIBUTING.md) · [Support the project](#-support-apexy)
 
+<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/H-BlaZe/Apexy"><img src="https://raw.githubusercontent.com/ImranR98/Obtainium/main/assets/graphics/badge_obtainium.png" alt="Get it on Obtainium" height="54" /></a>
+
 </div>
 
 ---
@@ -90,7 +92,7 @@ Apexy has **no internet permission**. Not "we don't collect data". It can't. The
 
 - No account, no sign-up, no phone number
 - No analytics, ads or tracking SDKs
-- Snore detection and photo matching run on your phone with bundled models
+- Snore detection and photo matching run on your phone with bundled models (the F-Droid build leaves both out)
 - Backups are files you choose where to save
 
 You can check this yourself: Android **Settings → Apps → Apexy → Permissions** won't list network access.
@@ -111,6 +113,8 @@ You can check this yourself: Android **Settings → Apps → Apexy → Permissio
 Stuck, or on Xiaomi/POCO/Redmi, Samsung, OnePlus, Oppo, Vivo or Realme? The [**full install guide**](docs/INSTALL.md) has step-by-step instructions for each brand, plus how to update and uninstall.
 
 **Updating:** download the new APK and install it over the old one. Your alarms and history stay.
+
+> **Coming from 1.6.x?** Version 1.7.0 changed the app's package name, so it installs as a separate app instead of updating. In the old app go to **Settings → Backup → Back up**. Then open the new app, go to **Settings → Backup → Restore**, pick that file, and uninstall the old app. Or install through [Obtainium](https://github.com/ImranR98/Obtainium), which checks GitHub for new versions and updates Apexy for you.
 
 ## 💜 Support Apexy
 
@@ -149,20 +153,25 @@ You'll need JDK 17 or newer and the Android SDK (platform 35). Android Studio se
 ```bash
 git clone https://github.com/H-BlaZe/Apexy.git
 cd Apexy
-./gradlew testDebugUnitTest assembleDebug
+./gradlew testFullDebugUnitTest testFossDebugUnitTest assembleDebug
 ```
 
-The debug APKs land in `app/build/outputs/apk/debug/`: `arm64-v8a` for phones and `x86_64` for the emulator. Install one with:
+There are two flavors:
+
+- **`full`**: what GitHub releases ship. Everything, including Photo match and snore detection, which run on Google's MediaPipe.
+- **`foss`**: the F-Droid build. No proprietary Google libraries, so it leaves out Photo match and snore detection. QR and barcode scanning use ZXing in both.
+
+The debug APKs land in `app/build/outputs/apk/<flavor>/debug/`: `arm64-v8a` for phones and `x86_64` for the emulator. Install one with:
 
 ```bash
-adb install -r app/build/outputs/apk/debug/app-arm64-v8a-debug.apk
+adb install -r app/build/outputs/apk/full/debug/app-full-arm64-v8a-debug.apk
 ```
 
 Release builds are signed with a key that lives outside the repo (`keystore.properties`, gitignored). You don't need it to build, run or contribute.
 
 ### Project layout
 
-| Path (`app/src/main/java/com/apexy/alarm/`) | What's there |
+| Path (`app/src/main/java/com/hblaze/apexy/`) | What's there |
 |---|---|
 | `core/` | Scheduling, the ringing service, alarm actions, the anti-cheat lock, backup |
 | `data/` | Room database, entities, migrations and DataStore settings |

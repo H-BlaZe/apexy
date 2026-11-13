@@ -6,7 +6,7 @@
 
 ## How was it tested?
 
-- [ ] `./gradlew testDebugUnitTest assembleDebug` passes
+- [ ] `./gradlew testFullDebugUnitTest testFossDebugUnitTest assembleDebug` passes
 - [ ] Tested on a real phone: <!-- model, Android version, skin (e.g. POCO F5, Android 14, HyperOS) -->
 - [ ] Alarms still ring with the screen off and the app swiped away (if this touches scheduling, ringing or services)
 

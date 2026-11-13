@@ -1,0 +1,48 @@
+<p>An alarm clock that won't shut up until you're actually awake. No ads, no account, no paywall, no internet. Ever.</p>
+
+<p>You set an alarm. It rings. To turn it off you have to <b>do something</b>: solve maths, walk 30 steps, scan the QR code you stuck on the bathroom mirror. Snoozing your way to 11 a.m. stops being an option.</p>
+
+<p><b>Alarms that actually ring</b></p>
+<ul>
+<li>Repeat days, labels, quick nap alarms, skip-next and a per-alarm accent colour</li>
+<li>Home-screen widget showing your next alarm</li>
+<li>Survives reboots, time-zone changes and the aggressive battery killers on Xiaomi, POCO, Samsung, OnePlus and friends</li>
+</ul>
+
+<p><b>Wake-up missions</b></p>
+<ul>
+<li>Brain: Math, Memory, Typing, Odd one out, In order</li>
+<li>Body: Shake, Steps, Squats, Hold steady</li>
+<li>Camera and sensors: QR code, Barcode, NFC tag, Light, and Photo match (Photo match is not in the F-Droid build)</li>
+<li>Chain up to 5, set a difficulty for each, try them first, or pick a random one every morning</li>
+<li>An emergency escape for real emergencies</li>
+</ul>
+
+<p><b>Anti-cheat, for the version of you at 6 a.m.</b></p>
+<ul>
+<li>Snooze limits, shrinking snooze and a running total of how long you snoozed</li>
+<li>A wake-up check a few minutes after you dismiss it</li>
+<li>Locks on last-minute alarm changes and on the alarm volume</li>
+<li>Gets louder if you ignore it, but never above the speaker limit you set</li>
+</ul>
+
+<p><b>Sound and sleep</b></p>
+<ul>
+<li>Tones synthesised on the device, system ringtones or your own music</li>
+<li>Gradual volume, extra-loud mode, a spoken message, vibration patterns, torch and screen flash</li>
+<li>Generated sleep sounds with a mixer and timer</li>
+<li>Motion-based sleep tracking with a night report and sleep stages</li>
+<li>Bedtime reminders</li>
+</ul>
+
+<p><b>Reports and looks</b></p>
+<ul>
+<li>Wake-up streaks, wake-up rate, time to get up, snoozes and consistency</li>
+<li>Neumorphic design in light, dark or system mode, with 8 colour themes or your own</li>
+<li>JSON backup and restore</li>
+</ul>
+
+<p><b>Privacy is a rule, not a feature</b></p>
+<p>Apexy has no internet permission, so it physically cannot send anything anywhere. No account, no analytics, no ads, no trackers. Backups are files you choose where to save.</p>
+
+<p>Apexy is free software under the GPL-3.0.</p>
