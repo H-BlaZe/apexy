@@ -20,7 +20,7 @@ This guide is for everyone, including people who have never installed an app out
 
 1. On your phone, open this link: **https://github.com/H-BlaZe/Apexy/releases/latest**
 2. Scroll down to the **Assets** section. Tap it if it's collapsed.
-3. Tap the file whose name ends in **`-arm64.apk`**, for example `Apexy-1.7.0-arm64.apk`.
+3. Tap the file whose name ends in **`-arm64.apk`**, for example `Apexy-1.7.1-arm64.apk`.
 
 > **Which file do I pick?**
 > - **`-arm64.apk`**: for phones and tablets. Pick this one.

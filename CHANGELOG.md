@@ -6,6 +6,12 @@ Versions before 1.6.0 were released privately, before Apexy was open-sourced.
 
 ## [Unreleased]
 
+## [1.7.1]
+
+### Changed
+- The F-Droid build is reproducible: F-Droid checks that its build matches ours and ships it with the same signature as the GitHub releases. It skips baseline profiles, which differ from build to build.
+- GitHub releases carry one universal `foss` APK, identical to F-Droid's, in place of the arm64-only one.
+
 ## [1.7.0]
 
 ### Added
@@ -91,6 +97,7 @@ Versions before 1.6.0 were released privately, before Apexy was open-sourced.
 ### Added
 - Core alarms: scheduling, ringing screen, snooze, repeat days.
 
-[Unreleased]: https://github.com/H-BlaZe/Apexy/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/H-BlaZe/Apexy/compare/v1.7.1...HEAD
+[1.7.1]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.7.1
 [1.7.0]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.7.0
 [1.6.1]: https://github.com/H-BlaZe/Apexy/releases/tag/v1.6.1

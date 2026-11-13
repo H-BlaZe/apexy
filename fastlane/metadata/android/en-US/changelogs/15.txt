@@ -1,0 +1,4 @@
+• First F-Droid release: a build with no proprietary Google libraries, signed with the same key as the GitHub releases
+• QR and barcode missions scan with ZXing (open source) instead of Google ML Kit
+• New package name (com.hblaze.apexy). Coming from 1.6.x? Back up in the old app (Settings → Backup), restore in this one, then uninstall the old one
+• The F-Droid build leaves out the Photo mission and snore detection, which need Google's MediaPipe

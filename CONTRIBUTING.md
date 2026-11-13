@@ -39,6 +39,8 @@ The `x86_64` APK is for the emulator. Camera-based missions and snore detection 
 
 There are two flavors: `full` (GitHub releases) and `foss` (F-Droid, no MediaPipe, so no Photo mission or snore detection). Code that needs MediaPipe lives in `app/src/full/`, with a stub of the same name in `app/src/foss/`. Never add a proprietary Google library (ML Kit, Play Services, Firebase) to the `foss` flavor; CI fails if you do.
 
+Releases: `scripts/build-foss-apk.sh <version>` builds the F-Droid APK from the version's tag and signs it. F-Droid rebuilds the same tag and only publishes if its build matches that APK, so always attach it to the GitHub release as `Apexy-<version>-foss.apk`.
+
 ## Code style
 
 - Kotlin, official code style (`kotlin.code.style=official`), 4-space indent. `.editorconfig` covers the basics.
